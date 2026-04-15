@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Office Access - Secure biometric office entry management system">
+  <title>Smart Office Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ===================== DASHBOARD SCREEN ===================== -->
+    <div id="screen-dashboard" class="screen active">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <span class="material-symbols-outlined brand-icon">grid_view</span>
+          <span class="brand-text">OFFICE ACCESS</span>
+        </div>
+        <div class="top-bar__avatar" id="avatar-btn">
+          <img src="https://api.dicebear.com/7.x/notionists/svg?seed=admin&backgroundColor=66d9cc" alt="Admin Avatar">
+        </div>
+      </header>
+
+      <!-- Hero Status -->
+      <section class="hero-status">
+        <span class="hero-status__label">CURRENT STATUS</span>
+        <h1 class="hero-status__title" id="status-title">SECURE</h1>
+        <p class="hero-status__subtitle">All entry points are locked and encrypted.</p>
+        <div class="hero-status__pulse" id="status-pulse"></div>
+      </section>
+
+      <!-- Biometric Unlock -->
+      <section class="biometric-section">
+        <div class="section-header">
+          <h2 class="section-title">Biometric Unlock</h2>
+          <span class="section-badge" id="biometric-status">Ready</span>
+        </div>
+        <div class="biometric-grid">
+          <button class="biometric-card" id="btn-fingerprint" aria-label="Fingerprint unlock">
+            <div class="biometric-card__icon-wrap">
+              <span class="material-symbols-outlined">fingerprint</span>
+            </div>
+            <span class="biometric-card__label">Fingerprint</span>
+            <div class="biometric-card__pulse-ring"></div>
+          </button>
+          <button class="biometric-card" id="btn-faceid" aria-label="Face ID unlock">
+            <div class="biometric-card__icon-wrap">
+              <span class="material-symbols-outlined">face</span>
+            </div>
+            <span class="biometric-card__label">Face ID</span>
+            <div class="biometric-card__pulse-ring"></div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Generate Guest OTP -->
+      <section class="otp-section">
+        <button class="btn-primary" id="btn-otp">
+          <span class="material-symbols-outlined">vpn_key</span>
+          Generate Guest OTP
+        </button>
+      </section>
+
+      <!-- Recent Access -->
+      <section class="recent-access-section">
+        <div class="section-header">
+          <h2 class="section-title">Recent Access</h2>
+          <button class="section-link" id="btn-view-history">VIEW HISTORY</button>
+        </div>
+        <div class="access-list" id="recent-access-list">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================== ACTIVITY LOG SCREEN ===================== -->
+    <div id="screen-activity" class="screen">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <span class="material-symbols-outlined brand-icon">grid_view</span>
+          <span class="brand-text">OFFICE ACCESS</span>
+        </div>
+        <div class="top-bar__actions">
+          <button class="icon-btn" id="btn-search" aria-label="Search">
+            <span class="material-symbols-outlined">search</span>
+          </button>
+          <button class="icon-btn" id="btn-filter" aria-label="Filter">
+            <span class="material-symbols-outlined">filter_list</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Activity Header -->
+      <section class="activity-header">
+        <h1 class="activity-header__title">Activity Log</h1>
+        <p class="activity-header__subtitle">Monitoring real-time office entries and security events.</p>
+      </section>
+
+      <!-- Activity Feed -->
+      <section class="activity-feed" id="activity-feed">
+        <!-- Populated by JS -->
+      </section>
+
+      <!-- Load More -->
+      <div class="load-more-wrap">
+        <button class="btn-secondary" id="btn-load-more">LOAD ARCHIVE EVENTS</button>
+      </div>
+    </div>
+
+    <!-- ===================== USERS SCREEN ===================== -->
+    <div id="screen-users" class="screen">
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <span class="material-symbols-outlined brand-icon">grid_view</span>
+          <span class="brand-text">OFFICE ACCESS</span>
+        </div>
+        <div class="top-bar__actions">
+          <button class="icon-btn" aria-label="Add user">
+            <span class="material-symbols-outlined">person_add</span>
+          </button>
+        </div>
+      </header>
+      <section class="placeholder-screen">
+        <span class="material-symbols-outlined placeholder-icon">group</span>
+        <h2 class="placeholder-title">User Management</h2>
+        <p class="placeholder-subtitle">Manage office access permissions and user profiles.</p>
+      </section>
+    </div>
+
+    <!-- ===================== SETTINGS SCREEN ===================== -->
+    <div id="screen-settings" class="screen">
+      <header class="top-bar">
+        <div class="top-bar__brand">
+          <span class="material-symbols-outlined brand-icon">grid_view</span>
+          <span class="brand-text">OFFICE ACCESS</span>
+        </div>
+      </header>
+      <section class="placeholder-screen">
+        <span class="material-symbols-outlined placeholder-icon">settings</span>
+        <h2 class="placeholder-title">Settings</h2>
+        <p class="placeholder-subtitle">Configure security protocols and system preferences.</p>
+      </section>
+    </div>
+
+    <!-- ===================== OTP MODAL ===================== -->
+    <div class="modal-overlay" id="otp-modal">
+      <div class="modal-card">
+        <div class="modal-card__header">
+          <h3>Guest Access Code</h3>
+          <button class="icon-btn" id="btn-close-modal" aria-label="Close">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="modal-card__body">
+          <div class="otp-display" id="otp-display">------</div>
+          <p class="otp-expiry">Expires in <span id="otp-timer">5:00</span></p>
+        </div>
+        <div class="modal-card__footer">
+          <button class="btn-primary btn-sm" id="btn-copy-otp">
+            <span class="material-symbols-outlined">content_copy</span>
+            Copy Code
+          </button>
+          <button class="btn-tertiary" id="btn-regenerate">Regenerate</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== BIOMETRIC MODAL ===================== -->
+    <div class="modal-overlay" id="biometric-modal">
+      <div class="modal-card biometric-modal-card">
+        <div class="biometric-scan-animation">
+          <div class="scan-circle" id="scan-circle">
+            <span class="material-symbols-outlined scan-icon" id="scan-icon">fingerprint</span>
+          </div>
+          <div class="scan-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
+        </div>
+        <p class="scan-status" id="scan-status">Place your finger on the sensor...</p>
+        <button class="btn-tertiary" id="btn-cancel-scan">Cancel</button>
+      </div>
+    </div>
+
+    <!-- ===================== BOTTOM NAVIGATION ===================== -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-screen="dashboard" id="nav-dashboard">
+        <span class="material-symbols-outlined">grid_view</span>
+        <span class="nav-label">DASHBOARD</span>
+      </button>
+      <button class="nav-item" data-screen="activity" id="nav-activity">
+        <span class="material-symbols-outlined">history</span>
+        <span class="nav-label">ACTIVITY LOG</span>
+      </button>
+      <button class="nav-item" data-screen="users" id="nav-users">
+        <span class="material-symbols-outlined">group</span>
+        <span class="nav-label">USERS</span>
+      </button>
+      <button class="nav-item" data-screen="settings" id="nav-settings">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="nav-label">SETTINGS</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
