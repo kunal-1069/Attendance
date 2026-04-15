@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: smart-office-backend
+    runtime: node
+    buildCommand: cd Backend && npm install
+    startCommand: cd Backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        scope: runtime
+        value: 0
+      - key: FIREBASE_PROJECT_ID
+        scope: runtime
+      - key: FIREBASE_CLIENT_EMAIL
+        scope: runtime
+      - key: FIREBASE_PRIVATE_KEY
+        scope: runtime
+      - key: FIREBASE_STORAGE_BUCKET
+        scope: runtime
+
+databases:
+  - name: smart-office-logs
+    databaseName: smart_office_logs
+    user: postgres
+
+env: node

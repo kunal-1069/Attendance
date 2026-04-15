@@ -122,8 +122,33 @@ npm.cmd start
 - Trigger events from dashboard actions (OTP, fingerprint, face)
 - Verify logs endpoint directly: `http://localhost:5000/api/iot/logs?limit=5`
 
+## Deployment
+
+### Backend on Render
+
+The backend is configured for easy deployment to [Render](https://render.com):
+
+1. Push code to GitHub (already done)
+2. Connect GitHub to Render
+3. Set environment variables (Firebase credentials optional)
+4. Deploy — Render auto-builds and starts the service
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step guide.
+
+Production URL example: `https://smart-office-backend.onrender.com`
+
+### Frontend with Production Backend
+
+After deploying backend, set the Render URL in your environment:
+
+```bash
+set EXPO_PUBLIC_API_BASE_URL=https://your-service.onrender.com
+npm run web
+```
+
 ## Tech Stack
 
 - Backend: Express, CORS, Multer, Firebase Admin (optional)
 - Frontend: React Native, Expo, React Navigation
 - Prototype UI: HTML/CSS/Vanilla JS
+- Deployment: Render (Node.js hosting)
